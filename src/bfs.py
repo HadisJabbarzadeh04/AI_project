@@ -9,7 +9,7 @@ def bfs(graph, start):
     visited.append(start)
 
     while queue:
-        current = queue[0]
+        current = queue.pop(0)
         result.append(current)
 
         # Check neighbors
