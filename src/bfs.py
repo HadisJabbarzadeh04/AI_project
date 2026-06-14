@@ -9,30 +9,31 @@ class BFS:
             depth=0
         )
 
-        frontier = [start_node]
-        explored = set()
+        queue = []
+        visited = []
+        result = []
 
-        expanded_nodes = 1
+        queue.append(start_node)
+        visited.append(start_node.state)
+
         step = 1
 
         print("=" * 40)
         print(f"STEP {step}")
-        print(f"Frontier: {[n.state for n in frontier]}")
+        print(f"Queue: {[n.state for n in queue]}")
 
-        while frontier:
+        while queue:
 
             step += 1
 
             print("=" * 40)
             print(f"STEP {step}")
 
-            # FIFO instead of LIFO
-            current = frontier.pop(0)
-
-            if current.state in explored:
-                continue
+            current = queue.pop(0)
 
             print(f"Expanded Node: {current.state}")
+
+            result.append(current.state)
 
             if current.state == problem.goal:
 
@@ -41,12 +42,9 @@ class BFS:
                 print("Final Result")
                 print("Path:", " -> ".join(current.get_path()))
                 print("Cost:", current.cost)
-                print("Expanded Nodes:", expanded_nodes)
+                print("Visited Nodes:", result)
 
                 return
-
-            explored.add(current.state)
-            expanded_nodes += 1
 
             neighbors = problem.graph.get_neighbors(
                 current.state
@@ -54,9 +52,12 @@ class BFS:
 
             generated = []
 
-            for neighbor, cost in neighbors:
+            for neighbor_info in neighbors:
 
-                if neighbor not in explored:
+                neighbor = neighbor_info[0]
+                cost = neighbor_info[1]
+
+                if neighbor not in visited:
 
                     child = Node(
                         state=neighbor,
@@ -65,16 +66,13 @@ class BFS:
                         depth=current.depth + 1
                     )
 
-                    frontier.append(child)
+                    visited.append(neighbor)
+                    queue.append(child)
                     generated.append(neighbor)
 
-            print(
-                f"Generated Nodes: {generated}"
-            )
+            print(f"Generated Nodes: {generated}")
+            print(f"Queue: {[n.state for n in queue]}")
+            print(f"Visited: {visited}")
 
-            print(
-                f"Frontier: {[n.state for n in frontier]}"
-            )
-
+        print("=" * 40)
         print("Goal not found.")
-        print("Expanded Nodes:", expanded_nodes)
