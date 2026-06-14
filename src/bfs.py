@@ -1,37 +1,80 @@
-import json
+from node import Node
 
-def bfs(graph, start):
-    queue = []
-    visited = []
-    result = []
+class BFS:
 
-    queue.append(start)
-    visited.append(start)
+    def search(self, problem):
 
-    while queue:
-        current = queue.pop(0)
-        result.append(current)
+        start_node = Node(
+            state=problem.start,
+            depth=0
+        )
 
-        # Check neighbors
-        neighbors = graph[current]
+        frontier = [start_node]
+        explored = set()
 
-        for neighbor_info in neighbors:
-            # First element is the neighbor's name
-            neighbor = neighbor_info[0]  
+        expanded_nodes = 1
+        step = 1
 
-            if neighbor not in visited:
-                visited.append(neighbor)
-                queue.append(neighbor)
+        print("=" * 40)
+        print(f"STEP {step}")
+        print(f"Frontier: {[n.state for n in frontier]}")
 
-    return result
+        while frontier:
 
+            step += 1
 
-with open(f"graph", "r") as file:
-    data = json.load(file)
+            print("=" * 40)
+            print(f"STEP {step}")
 
-graph = data["graph"]
-start = data["start"]
+            # FIFO instead of LIFO
+            current = frontier.pop(0)
 
-result = bfs(graph, start)
+            if current.state in explored:
+                continue
 
-print("Visited Nodes in Order:", result)
+            print(f"Expanded Node: {current.state}")
+
+            if current.state == problem.goal:
+
+                print("=" * 40)
+                print("Goal is Found.")
+                print("Final Result")
+                print("Path:", " -> ".join(current.get_path()))
+                print("Cost:", current.cost)
+                print("Expanded Nodes:", expanded_nodes)
+
+                return
+
+            explored.add(current.state)
+            expanded_nodes += 1
+
+            neighbors = problem.graph.get_neighbors(
+                current.state
+            )
+
+            generated = []
+
+            for neighbor, cost in neighbors:
+
+                if neighbor not in explored:
+
+                    child = Node(
+                        state=neighbor,
+                        parent=current,
+                        cost=current.cost + cost,
+                        depth=current.depth + 1
+                    )
+
+                    frontier.append(child)
+                    generated.append(neighbor)
+
+            print(
+                f"Generated Nodes: {generated}"
+            )
+
+            print(
+                f"Frontier: {[n.state for n in frontier]}"
+            )
+
+        print("Goal not found.")
+        print("Expanded Nodes:", expanded_nodes)
