@@ -4,10 +4,7 @@ class BFS:
 
     def search(self, problem):
 
-        start_node = Node(
-            state=problem.start,
-            depth=0
-        )
+        start_node = Node(state=problem.start, depth=0)
 
         queue = []
         visited = []
