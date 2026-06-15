@@ -4,11 +4,7 @@ class AStar:
 
     def search(self, problem):
 
-        start_node = Node(
-            state=problem.start,
-            cost=0,
-            depth=0
-        )
+        start_node = Node(state=problem.start, cost=0, depth=0)
 
         open_list = [start_node]
         closed_list = []
