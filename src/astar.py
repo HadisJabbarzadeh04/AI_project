@@ -6,8 +6,8 @@ class AStar:
 
         start_node = Node(state=problem.start, cost=0, depth=0)
 
-        open_list = [start_node]
-        closed_list = []
+        open_list = [start_node]  # nodes waiting to be explored
+        closed_list = []  # explored nodes
 
         expanded_nodes = 1
         step = 1
@@ -23,12 +23,7 @@ class AStar:
             print("=" * 40)
             print(f"STEP {step}")
 
-            current = min(
-                open_list,
-                key=lambda node:
-                node.cost +
-                problem.heuristic[node.state]
-            )
+            current = min(open_list, key=lambda node:node.cost + problem.heuristic[node.state])
 
             open_list.remove(current)
 
@@ -65,9 +60,7 @@ class AStar:
 
                 return
 
-            neighbors = problem.graph.get_neighbors(
-                current.state
-            )
+            neighbors = problem.graph.get_neighbors(current.state)
 
             generated = []
 
