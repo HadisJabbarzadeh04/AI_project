@@ -1,4 +1,5 @@
 from node import Node
+from search_problem import SearchProblem
 
 class AStar:
 
@@ -23,11 +24,11 @@ class AStar:
             print("=" * 40)
             print(f"STEP {step}")
 
-            current = min(open_list, key=lambda node:node.cost + problem.heuristic[node.state])
+            current = min(open_list, key=lambda node:node.cost + problem.get_heuristic(node.state))
 
             open_list.remove(current)
 
-            current_h = problem.heuristic[current.state]
+            current_h = problem.get_heuristic(current.state)
             current_f = current.cost + current_h
 
             print(
@@ -67,7 +68,7 @@ class AStar:
             for neighbor, edge_cost in neighbors:
 
                 g = current.cost + edge_cost
-                h = problem.heuristic[neighbor]
+                h = problem.get_heuristic(neighbor)
                 f = g + h
 
                 skip = False
@@ -77,7 +78,7 @@ class AStar:
 
                     node_f = (
                         node.cost +
-                        problem.heuristic[node.state]
+                        problem.get_heuristic(node.state)
                     )
 
                     if (
@@ -94,7 +95,7 @@ class AStar:
 
                         node_f = (
                             node.cost +
-                            problem.heuristic[node.state]
+                            problem.get_heuristic(node.state)
                         )
 
                         if (
@@ -131,7 +132,7 @@ class AStar:
             print(
                 "Open List:",
                 [
-                    f"{n.state}(f={n.cost + problem.heuristic[n.state]})"
+                    f"{n.state}(f={n.cost + problem.get_heuristic(n.state)})"
                     for n in open_list
                 ]
             )

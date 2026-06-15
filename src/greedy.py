@@ -1,6 +1,5 @@
 from node import Node
 
-
 class GreedyBestFirstSearch:
 
     def f(self, node, problem):
