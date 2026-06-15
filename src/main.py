@@ -1,8 +1,16 @@
 from graph import Graph
+from search_problem import SearchProblem
+
+from bfs import BFS
 from dfs import DFS
 from dls import DLS
 from ids import IDS
-from search_problem import SearchProblem
+from ucs import UniformCostSearch
+from greedy import GreedyBestFirstSearch
+from astar import AStarSearch
+
+from search_result import print_result
+
 
 graph = Graph()
 
@@ -21,33 +29,28 @@ problem = SearchProblem(
     goal="G"
 )
 
-print(problem.start)
-print(problem.goal)
+print("Start:", problem.start)
+print("Goal:", problem.goal)
+
+bfs = BFS()
+result = bfs.search(problem)
+print_result(result)
+
 
 dfs = DFS()
-dfs.search(problem)
+result = dfs.search(problem)
+print_result(result)
 
 
-# *****************************************************
-# get input for data set and algorithm and start point and goal
-# check input, call loader for jsons, 
-
-options = {
-    "1": "graph1.json",
-    "2": "graph2.json",
-    "3": "graph3.json",
-    "4": "custom graph"
-}
-
-algorithms = {
-    "1": "BFS",
-    "2": "UCS",
-    "3": "DFS",
-    "4": "DLS",
-    "5": "IDS",
-    "6": "Greedy",
-    "7": "A*",
-
-}
+ucs = UniformCostSearch()
+result = ucs.search(problem)
+print_result(result)
 
 
+greedy = GreedyBestFirstSearch()
+result = greedy.search(problem)
+print_result(result)
+
+astar = AStarSearch()
+result = astar.search(problem)
+print_result(result)
