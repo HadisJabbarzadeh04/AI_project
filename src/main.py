@@ -15,7 +15,8 @@ from visualize import visualize_graph
 data_sets = {
     "1": "graph1.json",
     "2": "graph2.json",
-    "3": "custom graph"
+    "3": "graph3.json",
+    "4": "custom graph"
 }
 
 algorithms = {
@@ -47,7 +48,7 @@ while exit != True:
             print("Invalid choice\n")
 
 
-    if selected_data_set != "3":
+    if selected_data_set != "4":
         file = data_sets[selected_data_set]
         graph, heurestic = load_graph(file_path = "data_test/" + file)
         graph.display()
@@ -132,7 +133,7 @@ while exit != True:
     # get heurestic from user
     # if selected algorithm is GREEDY or A* and selected data set is custom
 
-    if selected_data_set == "3" and selected_algorithm in ["6","7"]:
+    if selected_data_set == "4" and selected_algorithm in ["6","7"]:
         heuristic = {}
 
         print("\nEnter heuristic values (format: Node Value)")
