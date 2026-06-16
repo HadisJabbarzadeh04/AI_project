@@ -36,7 +36,6 @@ class BFS:
 
             # skip duplicates
             if current.state in explored:
-                print(f"Expanded Node: SKIPPED ({current.state})")
                 continue
 
             explored.add(current.state)

@@ -26,7 +26,7 @@ class DLS:
             
             current = frontier.pop()
 
-            print(f"Current Node: {current.state}")
+            print(f"Selected Node: {current.state}")
             print(f"Depth: {current.depth}")
 
             # SUCCESS
@@ -37,14 +37,16 @@ class DLS:
                         "cost": current.cost,
                         "expanded_nodes": expanded_nodes
                     }
-            
 
             # CUTOFF check
             if current.depth >= limit:
-
+                print("CUTOFF!")
+                print(40 * "=")
                 cutoff_occurred = True
                 step += 1
                 continue
+
+            print(f"Expanding {current.state} cause it's not goal.")
 
             expanded_nodes += 1
 
@@ -73,7 +75,6 @@ class DLS:
         # END LOOP
 
         if cutoff_occurred:
-            print("CUTOFF!")
             return {
                 "status": "cutoff",
                 "path": [],

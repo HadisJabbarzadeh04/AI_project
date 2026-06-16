@@ -41,6 +41,8 @@ class AStar:
                 key=lambda node:node.cost + problem.get_heuristic(node.state)
             )
 
+            print(f"Selected Node: {current.state}")
+
             # now exploring
             open_list.remove(current)
 

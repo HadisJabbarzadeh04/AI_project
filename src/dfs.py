@@ -34,7 +34,7 @@ class DFS:
             if current.state in explored:
                 continue
 
-            print(f"Expanded Node: {current.state}")
+            print(f"Selected Node: {current.state}")
 
             if current.state == problem.goal:
                 return {
@@ -42,6 +42,8 @@ class DFS:
                     "cost": current.cost,
                     "expanded_nodes": expanded_nodes
                 }
+            
+            print(f"Expanding {current.state} cause it's not goal.")
 
             explored.add(current.state)
             expanded_nodes += 1

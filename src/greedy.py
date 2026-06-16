@@ -8,12 +8,13 @@ class GreedyBestFirstSearch:
     def search(self, problem):
 
         start_node = Node(
-            state=problem.start,
-            cost=0
+            state=problem.start
         )
 
         frontier = [start_node]
         reached = {problem.start: start_node}
+
+        explored = set()
 
         expanded_nodes = 0
         step = 1
@@ -33,30 +34,30 @@ class GreedyBestFirstSearch:
 
             current = frontier.pop(min_index)
 
+            explored.add(current.state)
+
             print("=" * 40)
             print(f"STEP {step}")
             print(f"Selected Node: {current.state}")
             print(f"f(n)=h(n): {self.f(current, problem)}")
-            print(f"Path Cost: {current.cost}")
+            print(f"Explored Nodes: {explored}")
 
             if current.state == problem.goal:
                 print("Goal is Found.")
                 return {
                     "path": current.get_path(),
-                    "cost": current.cost,
                     "expanded_nodes": expanded_nodes
                 }
 
             expanded_nodes += 1
+
             generated = []
 
             for neighbor, edge_cost in problem.graph.get_neighbors(current.state):
 
                 child = Node(
                     state=neighbor,
-                    parent=current,
-                    cost=current.cost + edge_cost,
-                    depth=current.depth + 1
+                    parent=current
                 )
 
                 if neighbor not in reached:
@@ -64,11 +65,17 @@ class GreedyBestFirstSearch:
                     reached[neighbor] = child
                     frontier.append(child)
 
+
                     generated.append(
-                        f"{neighbor} (h={problem.get_heuristic(neighbor)}, cost={child.cost})"
+                        f"{neighbor} (h={problem.get_heuristic(neighbor)})"
                     )
 
+            frontier_view = [
+                f"{n.state}(h={self.f(n, problem)})"
+                for n in frontier
+            ]
+
             print(f"Generated Nodes: {generated}")
-            print(f"Frontier: {[(n.state, self.f(n, problem)) for n in frontier]}")
+            print(f"Frontier: {frontier_view}")
 
         return None

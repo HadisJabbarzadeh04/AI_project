@@ -16,12 +16,14 @@ class UniformCostSearch:
         frontier = [start_node]
         reached = {problem.start: start_node}
 
+        explored = set()
+
         expanded_nodes = 0
         step = 1
 
         print("=" * 40)
         print(f"STEP {step}")
-        print(f"Frontier: {[(n.state, n.cost) for n in frontier]}")
+        print(f"Frontier: {[n.state for n in frontier]}")
 
         while frontier:
 
@@ -33,11 +35,13 @@ class UniformCostSearch:
                     min_index = i
 
             current = frontier.pop(min_index)
+            explored.add(current.state)
 
-            print("=" * 40)
+            print("="*  40)
             print(f"STEP {step}")
             print(f"Selected Node: {current.state}")
             print(f"Current Cost: {current.cost}")
+            print(f"Explored Nodes: {explored}")
 
             if current.state == problem.goal:
                 print("Goal is Found.")
@@ -48,6 +52,7 @@ class UniformCostSearch:
                 }
 
             expanded_nodes += 1
+
             generated = []
 
             for neighbor, cost in problem.graph.get_neighbors(current.state):
@@ -79,6 +84,5 @@ class UniformCostSearch:
                         generated.append(f"{neighbor} replaced (Cost={new_cost})")
 
             print(f"Generated Nodes: {generated}")
-            print(f"Frontier: {[(n.state, n.cost) for n in frontier]}")
-
+            print(f"Frontier: {[f'{n.state}(cost={n.cost})' for n in frontier]}")
         return None
