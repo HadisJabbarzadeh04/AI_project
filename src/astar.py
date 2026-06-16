@@ -35,11 +35,13 @@ class AStar:
             print("=" * 40)
             print(f"STEP {step}")
 
+            # choose best node (smallest f)
             current = min(
                 open_list,
                 key=lambda node:node.cost + problem.get_heuristic(node.state)
             )
 
+            # now exploring
             open_list.remove(current)
 
             current_h = problem.get_heuristic(
@@ -63,7 +65,7 @@ class AStar:
                 f"f={current_f}"
             )
 
-            # Goal Test
+            # Goal check
             if current.state == problem.goal:
 
                 print("=" * 40)
