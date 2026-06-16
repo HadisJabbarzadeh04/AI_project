@@ -30,9 +30,10 @@ class BFS:
             print("=" * 40)
             print(f"STEP {step}")
 
-            # FIFO (BFS)
+            # FIFO
             current = frontier.pop(0)
 
+            # skip duplicates
             if current.state in explored:
                 continue
 
@@ -41,7 +42,7 @@ class BFS:
                 f"{current.state}"
             )
 
-            # Goal Test
+            # Goal check
             if current.state == problem.goal:
 
                 print("=" * 40)
