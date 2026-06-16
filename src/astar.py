@@ -12,8 +12,8 @@ class AStar:
             depth=0
         )
 
-        open_list = [start_node]
-        closed_list = []
+        open_list = [start_node]  # nodes waiting to be explored
+        closed_list = []  # already explored nodes
 
         expanded_nodes = 0
         expanded_list = []
@@ -37,9 +37,7 @@ class AStar:
 
             current = min(
                 open_list,
-                key=lambda node:
-                node.cost +
-                problem.get_heuristic(node.state)
+                key=lambda node:node.cost + problem.get_heuristic(node.state)
             )
 
             open_list.remove(current)
