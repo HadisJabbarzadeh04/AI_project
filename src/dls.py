@@ -15,7 +15,7 @@ class DLS:
         )
 
         frontier = [start_node]
-        expanded_nodes = 1
+        expanded_nodes = 0
         cutoff_occurred = False
         step = 1
 
@@ -31,19 +31,16 @@ class DLS:
 
             # SUCCESS
             if current.state == problem.goal:
-                print(40*"=")
-                print("Goal is Found.")
-                print("Final Result")
-                print("Path: ",current.get_path())
-                print("Cost: ",current.cost)
-                print("Expanded Nodes: ",expanded_nodes)
-                return
+                    return {
+                        "status": "success",
+                        "path": current.get_path(),
+                        "cost": current.cost,
+                        "expanded_nodes": expanded_nodes
+                    }
             
 
             # CUTOFF check
             if current.depth >= limit:
-
-                print(">>> CUTOFF REACHED")
 
                 cutoff_occurred = True
                 step += 1
@@ -76,18 +73,18 @@ class DLS:
         # END LOOP
 
         if cutoff_occurred:
-            print(40*"=")
-            print("Final Result")
-            print("Path: ",[])
-            print("Cost: ",0)
-            print("Expanded Nodes: ",expanded_nodes)
-            return
+            print("CUTOFF!")
+            return {
+                "status": "cutoff",
+                "path": [],
+                "cost": 0,
+                "expanded_nodes": expanded_nodes
+            }
 
-
-        else:
-            print(40*"=")
-            print("Final Result")
-            print("Path: ",[])
-            print("Cost: ",0)
-            print("Expanded Nodes: ",expanded_nodes)
-            return
+        print("FAILURE!")
+        return {
+            "status": "failure",
+            "path": [],
+            "cost": 0,
+            "expanded_nodes": expanded_nodes
+        }

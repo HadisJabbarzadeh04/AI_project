@@ -19,7 +19,10 @@ class IDS:
                 limit=depth
             )
 
-            if result.success:
+            if result["status"] == "success":
                 return result
+
+            if result["status"] == "failure":
+                return None
 
             depth += 1

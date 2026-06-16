@@ -13,7 +13,7 @@ class DFS:
         frontier = [start_node]
         explored = set()
 
-        expanded_nodes = 1
+        expanded_nodes = 0
         step = 1
 
         print("=" * 40)
@@ -37,13 +37,11 @@ class DFS:
             print(f"Expanded Node: {current.state}")
 
             if current.state == problem.goal:
-                print(40*"=")
-                print("Goal is Found.")
-                print("Final Result")
-                print("Path: ","->".join(current.get_path()))
-                print("Cost: ",current.cost)
-                print("Expanded Nodes: ",expanded_nodes)
-                return
+                return {
+                    "path": current.get_path(),
+                    "cost": current.cost,
+                    "expanded_nodes": expanded_nodes
+                }
 
             explored.add(current.state)
             expanded_nodes += 1
@@ -70,5 +68,5 @@ class DFS:
             print(f"Frontier: {[n.state for n in frontier]}")
 
             
-
+        # number of expanded nodes
         print("Expanded Nodes: ",expanded_nodes)
