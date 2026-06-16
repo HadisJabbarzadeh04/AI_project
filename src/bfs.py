@@ -19,8 +19,7 @@ class BFS:
         print("=" * 40)
         print(f"STEP {step}")
         print(
-            f"Frontier: "
-            f"{[n.state for n in frontier]}"
+            f"Frontier: {[n.state for n in frontier]}"
         )
 
         while frontier:
@@ -33,16 +32,43 @@ class BFS:
             # FIFO
             current = frontier.pop(0)
 
+            print(f"Selected Node: {current.state}")
+
             # skip duplicates
             if current.state in explored:
+                print(f"Expanded Node: SKIPPED ({current.state})")
                 continue
 
-            print(
-                f"Expanded Node: "
-                f"{current.state}"
-            )
+            explored.add(current.state)
 
-            # Goal check
+            neighbors = problem.graph.get_neighbors(current.state)
+
+            generated = []
+            frontier_states = {n.state for n in frontier}
+
+            for neighbor, cost in neighbors:
+
+                if (
+                    neighbor not in explored
+                    and neighbor not in frontier_states
+                ):
+
+                    child = Node(
+                        state=neighbor,
+                        parent=current,
+                        cost=current.cost + cost,
+                        depth=current.depth + 1
+                    )
+
+                    frontier.append(child)
+                    generated.append(neighbor)
+
+            expanded_nodes += 1
+
+            print(f"Generated Nodes: {generated}")
+            print(f"Frontier: {[n.state for n in frontier]}")
+            print(f"Expanded Node: {current.state}")
+
             if current.state == problem.goal:
 
                 print("=" * 40)
@@ -67,44 +93,6 @@ class BFS:
                     "expanded_nodes": expanded_nodes
                 }
 
-            explored.add(current.state)
-
-            expanded_nodes += 1
-
-            neighbors = problem.graph.get_neighbors(
-                current.state
-            )
-
-            generated = []
-
-            for neighbor, cost in neighbors:
-
-                if neighbor not in explored:
-
-                    child = Node(
-                        state=neighbor,
-                        parent=current,
-                        cost=current.cost + cost,
-                        depth=current.depth + 1
-                    )
-
-                    frontier.append(child)
-
-                    generated.append(neighbor)
-
-            print(
-                f"Generated Nodes: "
-                f"{generated}"
-            )
-
-            print(
-                f"Frontier: "
-                f"{[n.state for n in frontier]}"
-            )
-
         print("=" * 40)
         print("Goal not found.")
-        print(
-            "Expanded Nodes:",
-            expanded_nodes
-        )
+        print("Expanded Nodes:", expanded_nodes)
