@@ -9,6 +9,7 @@ from dls import DLS
 from ids import IDS
 from greedy import GreedyBestFirstSearch
 from astar import AStar
+from visualize import visualize_graph
 
 
 data_sets = {
@@ -164,3 +165,6 @@ else:
 
 # Final Result
 print_result(result)
+
+if result and "path" in result:
+    visualize_graph(graph, result["path"])
