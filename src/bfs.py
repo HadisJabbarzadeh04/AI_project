@@ -1,47 +1,74 @@
 from node import Node
 
+
 class BFS:
 
     def search(self, problem):
 
-        start_node = Node(state=problem.start, depth=0)
+        start_node = Node(
+            state=problem.start,
+            depth=0
+        )
 
-        queue = []
-        visited = []
-        result = []
+        frontier = [start_node]
+        explored = set()
 
-        queue.append(start_node)
-        visited.append(start_node.state)
-
+        expanded_nodes = 0
         step = 1
 
         print("=" * 40)
         print(f"STEP {step}")
-        print(f"Queue: {[n.state for n in queue]}")
+        print(
+            f"Frontier: "
+            f"{[n.state for n in frontier]}"
+        )
 
-        while queue:
+        while frontier:
 
             step += 1
 
             print("=" * 40)
             print(f"STEP {step}")
 
-            current = queue.pop(0)
+            # FIFO (BFS)
+            current = frontier.pop(0)
 
-            print(f"Expanded Node: {current.state}")
+            if current.state in explored:
+                continue
 
-            result.append(current.state)
+            print(
+                f"Expanded Node: "
+                f"{current.state}"
+            )
 
+            # Goal Test
             if current.state == problem.goal:
 
                 print("=" * 40)
                 print("Goal is Found.")
                 print("Final Result")
-                print("Path:", " -> ".join(current.get_path()))
-                print("Cost:", current.cost)
-                print("Visited Nodes:", result)
+                print(
+                    "Path:",
+                    " -> ".join(current.get_path())
+                )
+                print(
+                    "Cost:",
+                    current.cost
+                )
+                print(
+                    "Expanded Nodes:",
+                    expanded_nodes
+                )
 
-                return
+                return {
+                    "path": current.get_path(),
+                    "cost": current.cost,
+                    "expanded_nodes": expanded_nodes
+                }
+
+            explored.add(current.state)
+
+            expanded_nodes += 1
 
             neighbors = problem.graph.get_neighbors(
                 current.state
@@ -49,12 +76,9 @@ class BFS:
 
             generated = []
 
-            for neighbor_info in neighbors:
+            for neighbor, cost in neighbors:
 
-                neighbor = neighbor_info[0]
-                cost = neighbor_info[1]
-
-                if neighbor not in visited:
+                if neighbor not in explored:
 
                     child = Node(
                         state=neighbor,
@@ -63,13 +87,23 @@ class BFS:
                         depth=current.depth + 1
                     )
 
-                    visited.append(neighbor)
-                    queue.append(child)
+                    frontier.append(child)
+
                     generated.append(neighbor)
 
-            print(f"Generated Nodes: {generated}")
-            print(f"Queue: {[n.state for n in queue]}")
-            print(f"Visited: {visited}")
+            print(
+                f"Generated Nodes: "
+                f"{generated}"
+            )
+
+            print(
+                f"Frontier: "
+                f"{[n.state for n in frontier]}"
+            )
 
         print("=" * 40)
         print("Goal not found.")
+        print(
+            "Expanded Nodes:",
+            expanded_nodes
+        )
