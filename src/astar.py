@@ -62,9 +62,9 @@ class AStar:
             expanded_list.append(current.state)
 
             print(
-                f"g={current.cost}, "
-                f"h={current_h}, "
-                f"f={current_f}"
+                f"g={current.cost:.3f}, "
+                f"h={current_h:.3f}, "
+                f"f={current_f:.3f}"
             )
 
             # Goal check
@@ -168,9 +168,7 @@ class AStar:
 
                 open_list.append(child)
 
-                generated.append(
-                    f"{neighbor}(f={f})"
-                )
+                generated.append(f"{neighbor}(f={f:.3f})")
 
             closed_list.append(current)
 

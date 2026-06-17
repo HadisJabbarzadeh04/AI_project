@@ -21,7 +21,10 @@ class GreedyBestFirstSearch:
 
         print("=" * 40)
         print(f"STEP {step}")
-        print(f"Frontier: {[(n.state, self.f(n, problem), 3) for n in frontier]}")
+        print(
+            "Frontier:",
+            [(n.state, f"{self.f(n, problem):.3f}") for n in frontier]
+        )
 
         while frontier:
 
