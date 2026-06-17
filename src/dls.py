@@ -31,6 +31,7 @@ class DLS:
 
             # SUCCESS
             if current.state == problem.goal:
+                    print("Goal Found.")
                     return {
                         "status": "success",
                         "path": current.get_path(),
