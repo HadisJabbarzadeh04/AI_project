@@ -1,15 +1,17 @@
-from loader import load_graph
-from graph import Graph
-from search_problem import SearchProblem
-from search_result import print_result
-from bfs import BFS
-from ucs import UniformCostSearch
-from dfs import DFS
-from dls import DLS
-from ids import IDS
-from greedy import GreedyBestFirstSearch
-from astar import AStar
-from visualize import visualize_graph
+from basic.loader import load_graph
+from basic.graph import Graph
+from basic.search_problem import SearchProblem
+from basic.search_result import print_result
+from basic.visualize import visualize_graph
+
+from algorithms.uninformed_search.bfs import BFS
+from algorithms.uninformed_search.ucs import UniformCostSearch
+from algorithms.uninformed_search.dfs import DFS
+from algorithms.uninformed_search.dls import DLS
+from algorithms.uninformed_search.ids import IDS
+
+from algorithms.informed_search.astar import AStar
+from algorithms.informed_search.greedy import GreedyBestFirstSearch
 
 
 data_sets = {
