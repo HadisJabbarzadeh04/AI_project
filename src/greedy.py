@@ -21,7 +21,7 @@ class GreedyBestFirstSearch:
 
         print("=" * 40)
         print(f"STEP {step}")
-        print(f"Frontier: {[(n.state, self.f(n, problem)) for n in frontier]}")
+        print(f"Frontier: {[(n.state, self.f(n, problem), 3) for n in frontier]}")
 
         while frontier:
 
@@ -39,7 +39,7 @@ class GreedyBestFirstSearch:
             print("=" * 40)
             print(f"STEP {step}")
             print(f"Selected Node: {current.state}")
-            print(f"f(n)=h(n): {self.f(current, problem)}")
+            print(f"f(n)=h(n): {self.f(current, problem):.3f}")
             print(f"Explored Nodes: {explored}")
 
             if current.state == problem.goal:
@@ -67,11 +67,12 @@ class GreedyBestFirstSearch:
 
 
                     generated.append(
-                        f"{neighbor} (h={problem.get_heuristic(neighbor)})"
+                        f"{neighbor} "
+                        f"(h={problem.get_heuristic(neighbor):.3f})"
                     )
 
             frontier_view = [
-                f"{n.state}(h={self.f(n, problem)})"
+                f"{n.state}(h={self.f(n, problem):.3f})"
                 for n in frontier
             ]
 

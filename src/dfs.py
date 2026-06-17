@@ -37,6 +37,7 @@ class DFS:
             print(f"Selected Node: {current.state}")
 
             if current.state == problem.goal:
+                print("Goal Found.")
                 return {
                     "path": current.get_path(),
                     "cost": current.cost,

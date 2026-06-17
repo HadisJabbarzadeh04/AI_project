@@ -1,3 +1,6 @@
+import math
+
+
 class SearchProblem:
 
     def __init__(
@@ -5,15 +8,15 @@ class SearchProblem:
         graph,
         start,
         goal,
-        heuristic=None
+        positions=None
     ):
 
         self.graph = graph
         self.start = start
         self.goal = goal
-
-        self.heuristic = (
-            heuristic if heuristic
+        self.positions = (
+            positions
+            if positions
             else {}
         )
 
@@ -22,7 +25,13 @@ class SearchProblem:
         state
     ):
 
-        return self.heuristic.get(
-            state,
-            0
+        if (
+            state not in self.positions
+            or self.goal not in self.positions
+        ):
+            return 0
+
+        return math.dist(
+            self.positions[state],
+            self.positions[self.goal]
         )
