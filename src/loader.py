@@ -1,6 +1,5 @@
 import json
 from graph import Graph
-from search_problem import SearchProblem
 
 
 def load_graph(file_path):
@@ -9,7 +8,7 @@ def load_graph(file_path):
         data = json.load(f)
 
     graph_data = data["graph"]
-    heuristic = data.get("heuristic", {})
+    positions = data.get("positions", {})
 
     graph = Graph()
 
@@ -17,4 +16,4 @@ def load_graph(file_path):
         for neighbor, cost in graph_data[node]:
             graph.add_edge(node, neighbor, cost)
 
-    return (graph, heuristic)
+    return graph, positions

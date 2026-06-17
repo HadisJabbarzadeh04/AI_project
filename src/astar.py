@@ -38,7 +38,7 @@ class AStar:
             # choose best node (smallest f)
             current = min(
                 open_list,
-                key=lambda node:node.cost + problem.get_heuristic(node.state)
+                key=lambda node:node.cost + problem.get_heuristic(node.state)  # changed
             )
 
             print(f"Selected Node: {current.state}")
@@ -185,7 +185,7 @@ class AStar:
                 "Open List:",
                 [
                     f"{n.state}"
-                    f"(f={n.cost + problem.get_heuristic(n.state)})"
+                    f"(f={(n.cost + problem.get_heuristic(n.state)):.3f})"
                     for n in open_list
                 ]
             )
