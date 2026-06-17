@@ -15,7 +15,12 @@ from visualize import visualize_graph
 data_sets = {
     "1": "graph1.json",
     "2": "graph2.json",
-    "3": "custom graph"
+    "3": "graph3.json",
+    "4": "graph4.json",
+    "5": "graph5.json",
+    "6": "graph6.json",
+    "7": "graph7.json",
+    "8": "custom graph"
 }
 
 algorithms = {
@@ -47,7 +52,7 @@ while not exit:
             print("Invalid choice\n")
 
 
-    if selected_data_set != "3":
+    if selected_data_set != "8":
 
         file = data_sets[selected_data_set]
 
